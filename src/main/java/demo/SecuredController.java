@@ -9,6 +9,6 @@ public class SecuredController {
 
 	@RequestMapping("/user")
 	public User getUser(@RequestParam("name") String userName, @RequestParam("password") String userPassword) {
-		return new User(userName, userPassword);
+		return new User();
 	}
 }
