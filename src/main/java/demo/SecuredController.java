@@ -19,8 +19,7 @@ public class SecuredController {
 	}
 
 	@RequestMapping("/test")
-	public User getUser() {
-		return new User();
+	public void getUser() {
 	}
 
 	@RequestMapping("/accounts")

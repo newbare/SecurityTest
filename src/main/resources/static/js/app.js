@@ -11,6 +11,10 @@ eCharmApp.config(['$routeProvider', '$httpProvider',
 				templateUrl : 'partials/signup.html',
 				controller  : 'registerController'
 			}).
+			when('/test', {
+				templateUrl : 'partials/test.html',
+				controller  : 'testController'
+			}).
 			otherwise({
 				redirectTo : '/signin'
 			});
@@ -85,4 +89,17 @@ eCharmApp.controller('registerController',
 				$scope.error = true;
 			});
 		};
+	});
+
+eCharmApp.controller("testController",
+	function($scope, $rootScope, $http, $location) {
+		$scope.success = false;
+		$scope.fail = false;
+		$scope.test = function() {
+			$http.get('test').success(function(){
+				$scope.success = true;
+			}).error(function(data) {
+				$scope.fail = true;
+			});
+		}
 	});
