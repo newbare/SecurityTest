@@ -2,6 +2,7 @@ package demo;
 
 import java.security.Principal;
 
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,5 +21,10 @@ public class SecuredController {
 	@RequestMapping("/test")
 	public User getUser() {
 		return new User();
+	}
+
+	@RequestMapping("/accounts")
+	public void createAccount(@RequestBody Account account) {
+		System.out.println(account.getUsername());
 	}
 }

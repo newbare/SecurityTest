@@ -8,7 +8,8 @@ eCharmApp.config(['$routeProvider', '$httpProvider',
 				controller  : 'authController'
 			}).
 			when('/signup', {
-				templateUrl : 'partials/signup.html'
+				templateUrl : 'partials/signup.html',
+				controller  : 'registerController'
 			}).
 			otherwise({
 				redirectTo : '/signin'
@@ -64,4 +65,24 @@ eCharmApp.controller('authController',
     			$rootScope.authenticated = false;
   			});
 		}
+	});
+
+eCharmApp.controller('registerController',
+	function($scope, $rootScope, $http, $location) {
+		$scope.registered = false;
+		$scope.error = false;
+		$scope.accounts = {};
+		$scope.signUp = function() {
+			var accountData = {
+				username: $scope.accounts.username,
+				password: $scope.accounts.password,
+				email:    $scope.accounts.email
+			}
+
+			$http.post('accounts', accountData).success(function() {
+				$scope.registered = true;
+			}).error(function(data) {
+				$scope.error = true;
+			});
+		};
 	});
