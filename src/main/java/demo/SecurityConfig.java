@@ -37,6 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	          .antMatchers("/index.html", "/partials/signin.html", "/partials/signup.html", "/").permitAll()
 	      .and().authorizeRequests().antMatchers("/user", "/test").authenticated()
 //	      .anyRequest().authenticated()
+	      .and().authorizeRequests().antMatchers("/userRoute/**").authenticated()
 	      .and().authorizeRequests().antMatchers(HttpMethod.POST, "/accounts").permitAll()
 	      .and().logout()
 	      .and().addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
