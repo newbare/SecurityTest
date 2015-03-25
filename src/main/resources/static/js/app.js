@@ -15,8 +15,14 @@ eCharmApp.config(['$routeProvider', '$httpProvider',
 				templateUrl : 'partials/test.html',
 				controller  : 'testController'
 			}).
+			when('/articleList', {
+				templateUrl : 'partials/article-list.html'
+			}).
+			when('/article', {
+				templateUrl : 'partials/article.html'
+			}).
 			otherwise({
-				redirectTo : '/signin'
+				redirectTo : '/test'
 			});
 
 		$httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';

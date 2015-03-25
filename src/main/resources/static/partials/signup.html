@@ -1,4 +1,4 @@
-<div class="well">
+<div class="well" style="margin: 0 auto;width:70%;">
     <div class="alert alert-danger" ng-show="error">
         There was a problem signing up. Please try again.
     </div>
@@ -11,28 +11,28 @@
         	<div class="form-group">
             	<label for="inputUsername" class="col-lg-2 control-label">Username</label>
             	<div class="col-lg-10">
-                	<input type="username" class="form-control" id="inputUsername" placeholder="Username" ng-model="accounts.username">
+                	<input type="username" class="form-control" id="inputUsername" placeholder="Username" ng-model="accounts.username" required>
             	</div>
         	</div>
         	<div class="form-group">
             	<label for="inputPassword" class="col-lg-2 control-label">Password</label>
             	<div class="col-lg-10">
-                	<input type="password" class="form-control" id="inputPassword" placeholder="Password" ng-model="accounts.password">
+                	<input type="password" class="form-control" id="inputPassword" placeholder="Password" ng-model="accounts.password" required>
             	</div>
         	</div>
         	<div class="form-group">
             	<label for="inputPasswordConfirm" class="col-lg-2 control-label">Confirm Password</label>
             	<div class="col-lg-10">
-                	<input type="passwordConfirm" class="form-control" id="inputPasswordConfirm" placeholder="Confirm Password">
+                	<input type="passwordConfirm" class="form-control" id="inputPasswordConfirm" placeholder="Confirm Password" required>
             	</div>
        		</div>
         	<div class="form-group">
             	<label for="inputEmail" class="col-lg-2 control-label">Email</label>
             	<div class="col-lg-10">
-                	<input type="email" class="form-control" id="inputEmail" placeholder="Email Address" ng-model="accounts.email">
+                	<input type="email" class="form-control" id="inputEmail" placeholder="Email Address" ng-model="accounts.email" ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/" required>
                 	<div class="checkbox">
                     	<label>
-                        	<input type="checkbox"> I Agree with the Term of Service.
+                        	<input type="checkbox" required> I Agree with the Term of Service.
                     	</label>
                 	</div>
             	</div>
