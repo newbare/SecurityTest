@@ -34,6 +34,10 @@ eCharmApp.config(['$routeProvider', '$httpProvider',
 			when('/userList/:userType', {
 				templateUrl : 'partials/user-list.html'
 			}).
+			when('/user/:userId', {
+				templateUrl : 'partials/user.html',
+				controller  : 'userController'
+			}).
 			otherwise({
 				redirectTo : '/test'
 			});
@@ -42,11 +46,12 @@ eCharmApp.config(['$routeProvider', '$httpProvider',
 	}]);
 
 eCharmApp.run(function($rootScope) {
-	$rootScope.serverUrl = "https://localhost:9000/";
+	// $rootScope.serverUrl = "https://localhost:9000/";
+	$rootScope.serverUrl = "https://local.sevenloltest.com:9000/";
 });
 
 eCharmApp.controller('authController',
-	function($scope, $rootScope, $http, $location) {
+	function($scope, $rootScope, $http, $location, $window) {
 
 		var authenticate = function(credentials, callback) {
 			var headers = credentials ? {authorization : "Basic "
@@ -71,6 +76,10 @@ eCharmApp.controller('authController',
 		};
 
 		$scope.credentials = {};
+
+		$scope.fbSignIn = function() {
+			$window.location.href = $rootScope.serverUrl + 'auth/facebook';
+		};
 
 		$scope.login = function() {
 			authenticate($scope.credentials, function() {
@@ -99,6 +108,7 @@ eCharmApp.controller('registerController',
 		$scope.registered = false;
 		$scope.error = false;
 		$scope.accounts = {};
+
 		$scope.signUp = function() {
 			var accountData = {
 				username: $scope.accounts.username,
@@ -106,25 +116,44 @@ eCharmApp.controller('registerController',
 				email:    $scope.accounts.email
 			}
 
-			$http.post('accounts', accountData).success(function() {
+			$http.post($rootScope.serverUrl + 'accounts', accountData).success(function() {
 				$scope.registered = true;
 			}).error(function(data) {
 				$scope.error = true;
 			});
 		};
+
 	});
 
 eCharmApp.controller("testController",
 	function($scope, $rootScope, $http, $location) {
 		$scope.success = false;
 		$scope.fail = false;
+
+		var testAuthentication = function() {
+			$http.get($rootScope.serverUrl + 'user').success(function(data) {
+      			if (data.name) {
+        			$rootScope.authenticated = true;
+      			} else {
+        			$rootScope.authenticated = false;
+      			}
+    		}).error(function() {
+      			$rootScope.authenticated = false;
+    		});
+		};
+
 		$scope.test = function() {
-			$http.get('test').success(function(){
+			$http.get($rootScope.serverUrl + 'user').success(function(){
 				$scope.success = true;
+				$rootScope.authenticated = true;
 			}).error(function(data) {
 				$scope.fail = true;
+				$rootScope.authenticated = false;
 			});
-		}
+		};
+
+		testAuthentication();
+
 	});
 
 eCharmApp.controller("articleListController",
@@ -140,7 +169,8 @@ eCharmApp.controller("articleListController",
 				return;
 
 			$http.delete($rootScope.serverUrl + 'articles/' + category + "/" + articleId).success(function(data, status, headers, config) {
-				$location.path("/articleList/" + category);
+				// $location.path("/articleList/" + category);
+				$route.reload();
 			}).error(function(data, status, headers, config) {
 				// delete error
 				alert("Delete-article failed. HTTP Status: " + status)
@@ -353,4 +383,10 @@ eCharmApp.controller('updateArticleController',
 		};
 
 		readArticle();
+	});
+
+eCharmApp.controller('userController', 
+	function($scope, $rootScope, $routeParams, $http, $location){
+		$scope.isEditMode = false
+		$scope.userType = 'doctor';	
 	});

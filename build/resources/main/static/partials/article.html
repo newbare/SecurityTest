@@ -1,0 +1,123 @@
+<div class="well" style="margin: 0 auto;width:70%;">
+    <div class="alert alert-danger" ng-show="articleService.fail">
+        There was a problem getting the article (HTTP Status: {{articleService.errorStatus}}). Please try again.
+    </div>
+
+	<!-- Article div start -->
+	<div ng-show="articleService.success">
+		<div>
+			<h1 style="display:inline-block;margin-bottom:20px;">{{article.title}}</h1>
+			<ul class="list-inline pull-right" ng-show="article.tag_arr !== null && article.tag_arr.length !== 0">
+				<li ng-repeat="tag in article.tag_arr"><span class="label label-default" style="margin-right:5px;">{{tag}}</span></li>
+			</ul>
+		</div>
+		<ul class="list-inline">
+			<li ><i class="mdi-social-domain"></i><span style="margin-left:5px;font-size:16px">{{article.category}}</span></li>
+			<li><i class="mdi-social-person"></i><span style="margin-left:5px;font-size:16px">{{article.author_id}}</span></li>
+			<li><i class="mdi-device-access-time"></i><span style="margin-left:5px;font-size:16px">{{article.created_at}}</span></li>
+			<li><i class="mdi-editor-insert-comment"></i><span style="margin-left:5px;font-size:16px;">5 Comments</span></li>
+			<li><i class="mdi-social-poll"></i><span style="margin-left:5px;font-size:16px;">Avg: 4.5 stars (145)</span></li>
+		</ul>
+
+		<div style="margin-top:40px;">
+			<p style="margin-top:30px;">Spring provides a convenient template class called RestTemplate. RestTemplate makes interacting with most RESTful services a simple process. In the example below, you establish a few variables and then make a request of the simple REST service. You use the Simple XML library to marshal the XML response data into your representation classes.</p>
+			<img style="margin-top:30px;" src="images/dummy-article-image.jpg" alt="icon" class="img-thumbnail">
+			<p style="margin-top:40px;">{{article.content_text}}</p>
+			<p style="margin-top:40px;">Paragraph 3 ...</p>
+		</div>
+
+	</div>
+	<!-- Article div end -->
+
+    <div class="alert alert-danger" ng-show="commentService.fail">
+        There was a problem getting the article (HTTP Status: {{commentService.errorStatus}}). Please try again.
+    </div>
+
+	<!-- Comment list div start -->
+	<div style="margin-top:70px;" ng-show="articleService.success && commentService.success">
+		<ul class="list-inline" style="margin-bottom:0px;">
+			<li><i class="mdi-editor-insert-comment"></i><strong>{{commentList.length}} Comments</strong></li>
+			<li><i class="mdi-action-thumb-up"></i><span style="margin-left:5px;font-size:16px">Rate this Article</span></li>
+			<li><i class="mdi-social-share"></i><span style="margin-left:5px;font-size:16px">Share</span></li>
+			<li class="pull-right"><i class="mdi-social-person"></i><span style="margin-left:5px;font-size:16px">Username</span></li>
+		</ul>
+		<hr style="margin-top:10px;">
+		<div class="list-group">
+            <div ng-repeat="comment in commentList">
+			    <div class="list-group-item" style="margin-bottom:30px;">
+                    <div class="row-action-primary">
+                        <img class="img-circle" src="http://lorempixel.com/56/56/people/1" alt="icon">
+                    </div>
+                    <div class="row-content">
+                        <div class="least-content">{{comment.created_at}}</div>
+                        <p class="list-group-item-text">{{comment.comment_text}}</p>
+                    </div>
+                </div>
+                <div class="list-group-item col-lg-11 col-lg-offset-1" ng-show="comment.author_response_text !== null">
+                    <div class="row-action-primary">
+                        <i class="mdi-social-person"></i>
+                    </div>
+                    <div class="row-content">
+                        <div class="least-content">{{comment.responded_at}}</div>
+                        <p class="list-group-item-text">{{comment.author_response_text}}</p>
+                    </div>
+                </div>
+                <div class="list-group-separator"></div>
+            </div>
+		</div>
+	</div>
+	<!-- Comment list div end -->
+
+	<!-- Reply form start -->
+	<div style="margin-top:20px;" ng-show="articleService.success">
+		<div class="panel panel-default">
+    		<div class="panel-heading">Leave a comment!</div>
+    		<div class="panel-body">
+        		<form class="form-horizontal" ng-submit="createComment()">
+    				<fieldset>
+    					<div class="form-group">
+            				<label for="textArea" class="col-lg-2 control-label">
+            					<img class="img-circle" src="http://lorempixel.com/56/56/people/1" alt="icon">
+            				</label>
+            				<div class="col-lg-10">
+                				<textarea class="form-control" rows="3" id="textArea" ng-model="comment.comment_text" required></textarea>
+                				<span class="help-block">Leave a comment as <strong>{{comment.commenter_id}}</strong></span>
+            				</div>
+        				</div>
+        				<div class="form-group">
+            				<div class="col-lg-10 col-lg-offset-2">
+                				<button type="submit" class="btn btn-material-blue-grey-500">Submit</button>
+            				</div>
+        				</div>
+    				</fieldset>
+    			</form>
+    		</div>
+		</div>
+	</div>
+	<!-- Reply form end -->
+
+	<!-- Rating form start -->
+	<div style="margin-top:20px;" ng-show="articleService.success">
+		<div class="panel panel-default">
+    		<div class="panel-heading">
+    			<span>Rate this Article!</span>
+    			<i class="mdi-social-person pull-right"></i><span class="pull-right" style="margin-left:5px;font-size:16px">Username</span>
+    		</div>
+    		<div class="panel-body">
+    			<form class="form-horizontal">
+    				<fieldset>
+    					<label for="inputRating" class="col-lg-2 control-label">Rating</label>
+            			<div class="col-lg-10">
+                			<input type="number" min="0" max="5" step="0.1" class="form-control" id="inputRating" placeholder="Enter number from 0 to 5">
+           				</div>
+           				<div class="form-group">
+            				<div class="col-lg-10 col-lg-offset-2">
+                				<button type="submit" class="btn btn-material-blue-grey-500">Submit</button>
+            				</div>
+        				</div>
+    				</fieldset>
+    			</form>
+    		</div>
+    	</div>
+    </div>
+</div>

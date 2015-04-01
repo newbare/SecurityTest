@@ -2,6 +2,7 @@ package demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
@@ -13,6 +14,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+import org.springframework.social.security.SocialUserDetailsService;
+import org.springframework.social.security.SpringSocialConfigurer;
 
 @Configuration
 @EnableWebSecurity
@@ -34,11 +37,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 //	            .and()
 //	        .authorizeRequests().antMatchers(HttpMethod.POST, "/user").permitAll()
 	      .and().authorizeRequests()
-	          .antMatchers("/index.html", "/partials/signin.html", "/partials/signup.html", "/").permitAll()
+	          .antMatchers("/index.html", "/partials/signin.html", "/partials/signup.html", "/", "/auth/**", "/signup/**").permitAll()
 	      .and().authorizeRequests().antMatchers("/user", "/test").authenticated()
 //	      .anyRequest().authenticated()
 	      .and().authorizeRequests().antMatchers("/userRoute/**").authenticated()
 	      .and().authorizeRequests().antMatchers(HttpMethod.POST, "/accounts").permitAll()
+	      .and().authorizeRequests().antMatchers(HttpMethod.GET, "/articles", "/articles/*", "/articles/*/*").permitAll()
+	      .and().authorizeRequests().antMatchers(HttpMethod.POST, "/articles", "/articles/*", "/articles/*/*").hasRole("ADMIN")
+	      .and().authorizeRequests().antMatchers(HttpMethod.PUT, "/articles", "/articles/*", "/articles/*/*").hasRole("ADMIN")
+	      .and().authorizeRequests().antMatchers(HttpMethod.DELETE, "/articles", "/articles/*", "/articles/*/*").hasRole("ADMIN")
+	      .and().authorizeRequests().antMatchers(HttpMethod.GET, "/articles/*/*/comments/**").permitAll()
+          .and().authorizeRequests().antMatchers(HttpMethod.POST, "/articles/*/*/comments").hasAnyRole("USER","ADMIN")
+          .and().authorizeRequests().antMatchers(HttpMethod.PUT, "/articles/*/*/comments/*").hasRole("ADMIN")
+          .and().authorizeRequests().antMatchers(HttpMethod.DELETE, "/articles/*/*/comments/**").hasRole("ADMIN")
+          .and()
+            .apply(getSpringSocialConfigurer())
 	      .and().logout()
 	      .and().addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
 	      .csrf().csrfTokenRepository(csrfTokenRepository());
@@ -47,7 +60,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 //	    auth.userDetailsService(new UserDetailServiceImpl());
-		auth.inMemoryAuthentication().withUser("user").password("password").roles("USER");
+		auth.inMemoryAuthentication()
+		    .withUser("user").password("password").roles("USER")
+		    .and().withUser("admin").password("password").roles("ADMIN");
+    }
+
+	private SpringSocialConfigurer getSpringSocialConfigurer() {
+        SpringSocialConfigurer config = new SpringSocialConfigurer();
+        config.alwaysUsePostLoginUrl(true);
+        config.postLoginUrl("/user");
+
+        return config;
+    }
+
+    @Bean
+    public SocialUserDetailsService socialUserDetailsService() {
+        return new SimpleSocialUserDetailsService();
     }
 
 	private CsrfTokenRepository csrfTokenRepository() {

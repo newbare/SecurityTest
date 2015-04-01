@@ -1,0 +1,66 @@
+<div class="well" style="margin: 0 auto;width:70%;">
+	<div class="row">
+		<div class="col-md-8">
+			<div class="alert alert-danger" ng-show="fail">
+            	There was a problem creating article (HTTP Status: {{errorStatus}}). Please try again.
+        	</div>
+
+        	<!-- Create Article Form Start -->
+        	<div>
+        		<form class="form-horizontal" ng-submit="createArticle()">
+    				<fieldset>
+    					<legend>Create an Article!</legend>
+       					<div class="form-group">
+            				<label for="inputTitle" class="col-lg-2 control-label">Title</label>
+            				<div class="col-lg-10">
+                				<input class="form-control" id="inputTitle" ng-model="article.title" required>
+            				</div>
+        				</div>
+        				<div class="form-group">
+            				<label for="inputAuthorId" class="col-lg-2 control-label">Author ID</label>
+            				<div class="col-lg-10">
+                				<input class="form-control" id="inputAuthorId" ng-model="article.author_id" required>
+            				</div>
+        				</div>
+        				<div class="form-group">
+    						<label class="col-lg-2 control-label" for="inputCategory">Category</label>
+    						<div class="col-lg-10">
+    							<input class="form-control" id="inputCategory" type="text" value="{{category}}" disabled="">
+    						</div>
+						</div>
+						<div class="form-group">
+            				<label for="textArea" class="col-lg-2 control-label">
+            					Content
+            				</label>
+            				<div class="col-lg-10">
+                				<textarea class="form-control" rows="3" id="textArea" required>{{article.content_text}}</textarea>
+                				<span class="help-block">Create an Article as <strong>Username</strong></span>
+            				</div>
+        				</div>
+    					<div class="form-group">
+            				<div class="col-lg-10 col-lg-offset-2">
+                				<button type="submit" class="btn btn-material-blue-grey-500">Submit</button>
+            				</div>
+        				</div>
+    				</fieldset>
+    			</form>
+        	</div>
+        	<!-- Create Article Form End -->
+		</div>
+		<!-- article category list -->
+		<div class="col-md-4">
+			<div class="list-group">
+				<div class="list-group-item">
+					<a href="#createArticle/Category_1" ng-class="{'btn-material-blue-grey-500': category==='Category_1'}" class="btn btn-flat" style="display:inline-block;margin-right:10px;">
+    					<i class="pull-left mdi-action-face-unlock"></i>
+        				<span style="padding-left:10px; font-size:18px;">Category 1</span>
+					</a>
+					<a href="#createArticle/Category_2" ng-class="{'btn-material-blue-grey-500': category==='Category_2'}" class="btn btn-flat btn-default" style="display:inline-block;margin-right:10px;">
+    					<i class="pull-left mdi-action-search"></i>
+        				<span style="padding-left:10px; font-size:18px;">Category 2</span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
