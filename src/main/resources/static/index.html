@@ -23,10 +23,11 @@
                         <li><a href="#/createArticle/default">Create an Article</a></li>
                         <li><a href="#/articleList/all">Read Articles</a></li>
                         <li><a href="#/userList/all">User List</a></li>
+                        <li><a href="#/createUser/user">Create User</a></li>
                         <!-- <li><a href="#/user/id">User</a></li> -->
                     </form>
                     <ul class="nav navbar-nav navbar-right" style="padding-right:20px">
-                        <li ng-show="authenticated"><img class="img-circle" style="width:40px; margin-top:10px;margin-right:5px;" src="http://lorempixel.com/56/56/people/1" alt="icon"></li>
+                        <li ng-show="authenticated"><a style="margin:0px;padding:0px;" href="#/user/me/info"><img class="img-circle" style="width:40px; margin-top:10px;margin-right:5px;" src="http://lorempixel.com/56/56/people/1" alt="icon"></a></li>
                         <li><a href="#/signup">Sign Up</a></li>
                         <li ng-show="!authenticated" ><a href="#/signin">Sign In</a></li>
                         <li ng-show="authenticated"><a href="javascript:void(0)" ng-click="logout()">Sign Out</a></li>

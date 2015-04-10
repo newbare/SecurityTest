@@ -1,0 +1,179 @@
+<div class="well" style="margin: 0 auto;width:70%;">
+	<div class="row">
+		<div class="col-md-8">
+			<form class="form-horizontal">
+				<fieldset>
+					<!-- Basic Info Start -->
+        			<legend>Basic Information</legend>
+        			<div class="form-group">
+            			<label for="inputUsername" class="col-lg-2 control-label">Username</label>
+            			<div class="col-lg-10">
+                			<input type="text" class="form-control" id="inputUsername" value="Username">
+            				</div>
+        			</div>
+        			<div class="form-group">
+            			<label for="inputPassword" class="col-lg-2 control-label">Password</label>
+            			<div class="col-lg-10">
+                			<input type="password" class="form-control" id="inputPassword" value="1234">
+            			</div>
+        			</div>
+        			<div class="form-group">
+            			<label for="inputEmail" class="col-lg-2 control-label">Email</label>
+            			<div class="col-lg-10">
+                			<input type="text" class="form-control" id="inputEmail" value="emailAccount@echarm.com">
+            			</div>
+        			</div>
+        			<div class="form-group">
+            			<label for="inputEmail" class="col-lg-2 control-label">User Type</label>
+            			<div class="col-lg-10">
+            				<i ng-show="userType === 'user'" class="mdi-action-face-unlock"></i>
+                			<i ng-show="userType === 'doctor'" class="mdi-maps-local-hospital mdi-material-amber"></i>
+                			<i ng-show="userType === 'admin'" class="mdi-action-search mdi-material-red"></i>                			
+            			</div>
+        			</div>
+        			<!-- Basic Info End -->
+
+        			<hr>
+
+        			<!-- Detail Info Start -->
+        			<legend>Detail Information</legend>
+        			<div class="form-group">
+        				<div class="togglebutton pull-right">
+                 	   		<label>
+                        		<input type="checkbox" ng-model="isDetailAttached"> Edit Detail
+                        		<span ng-if="isDetailAttached"> On</span>
+                        		<span ng-if="!isDetailAttached"> Off</span>
+                    		</label>
+                		</div>
+        			</div>
+        		
+        			<div class="form-group" ng-show="isDetailAttached">
+            			<label for="inputName" class="col-lg-2 control-label">Name</label>
+            			<div class="col-lg-10">
+                			<input type="text" class="form-control" id="inputName" value="Barack Obama">
+            			</div>
+        			</div>
+        			<div class="form-group" ng-show="isDetailAttached">
+            			<label for="inputGender" class="col-lg-2 control-label">Gender</label>
+            			<div class="col-lg-10">
+            				<div class="radio radio-primary">
+                    			<label>
+                        			<input type="radio" name="genderRadios" id="male" value="male" checked="">
+                        	   		MALE
+                    			</label>
+                			</div>
+                			<div class="radio radio-primary">
+                    			<label>
+                        			<input type="radio" name="genderRadios" id="female" value="female">
+                        			FEMALE
+                    			</label>
+                			</div>
+            			</div>
+        			</div>
+        			<div class="form-group" ng-show="isDetailAttached">
+            			<label for="inputPhoneNumber" class="col-lg-2 control-label">Phone Number</label>
+            			<div class="col-lg-10">
+                			<input type="text" class="form-control" id="inputPhoneNumber" value="0800000123">
+            			</div>
+        			</div>
+        			<div class="form-group" ng-show="isDetailAttached">
+            			<label for="inputAddress" class="col-lg-2 control-label">Address</label>
+            			<div class="col-lg-10">
+                			<input type="text" class="form-control" id="inputAddress" value="1600 Pennsylvania Ave NW, Washington, DC 20500">
+            			</div>
+        			</div>
+        			<!-- Detail Info End -->
+        			
+        			<!-- Doctor Info Start -->
+        			<div ng-show="isDetailAttached && userType === 'doctor'">
+        				<div class="form-group">
+            				<label for="inputCategory" class="col-lg-2 control-label">Category</label>
+            				<div class="col-lg-10">
+                				<input type="text" class="form-control" id="inputCategory" value="Division of General Surgery">
+            				</div>
+        				</div>
+        				<div class="form-group">
+            				<label for="inputCurrentHospital" class="col-lg-2 control-label">Current Hospital</label>
+            				<div class="col-lg-10">
+                				<input type="text" class="form-control" id="inputCurrentHospital" value="White House">
+            				/div>
+        					</div>
+        				</div>
+        				<div class="form-group">
+            				<label for="inputCollege" class="col-lg-2 control-label">Graduated From</label>
+            				<div class="col-lg-10">
+                				<input type="text" class="form-control" id="inputCurrentHospital" value="Harvard">
+            				</div>
+        				</div>
+        				<div class="form-group">
+            				<label for="inputTitle" class="col-lg-2 control-label">Title</label>
+            				<div class="col-lg-10">
+                				<input type="text" class="form-control" id="inputTitle" value="POTUS">
+            				</div>
+        				</div>
+        				<div class="form-group">
+            				<label for="inputSpeciality" class="col-lg-2 control-label">Speciality</label>
+            				<div class="col-lg-10">
+                				<input type="text" class="form-control" id="inputSpeciality" value="World Peace">
+            				</div>
+        				</div>
+        				<div class="form-group">
+            				<label for="inputAvailableTime" class="col-lg-2 control-label">Available Time</label>
+            				<div class="col-lg-10">
+                				<input type="text" class="form-control" id="inputAvailableTime" value="24/7">
+            				</div>
+        				</div>
+        				<div class="form-group">
+            				<label for="inputFBAccount" class="col-lg-2 control-label">Facebook Account</label>
+            				<div class="col-lg-10">
+                				<input type="text" class="form-control" id="inputFBAccount" value="barackobama">
+            				</div>
+        				</div>
+        				<div class="form-group">
+            				<label for="inputBlogUrl" class="col-lg-2 control-label">Blog Url</label>
+            				<div class="col-lg-10">
+                				<input type="text" class="form-control" id="inputBlogUrl" value="http://server/barackobama">
+            				</div>
+        				</div>
+        			</div>
+        			<!-- Doctor Info End -->
+        			<div class="form-group">
+            			<div class="col-lg-10 col-lg-offset-2">
+                			<button type="submit" class="btn btn-material-blue-grey-500">submit</button>
+            			</div>
+        			</div>
+				</fieldset>
+			</form>
+		</div>
+		<!-- User Type List Div Start -->
+		<div class="col-md-4">
+			<div class="list-group">
+				<div class="list-group-item">
+					<a href="#createUser/user" ng-class="{'btn-material-blue-grey-500': userType==='user'}" class="btn btn-flat" style="display:inline-block;margin-right:10px;">
+    					<i class="pull-left mdi-action-face-unlock"></i>
+        				<span style="padding-left:10px; font-size:18px;">User</span>
+					</a>
+				</div>
+				<div class="list-group-item">
+					<a href="#createUser/doctor" ng-class="{'btn-material-blue-grey-500': userType==='doctor'}" class="btn btn-flat btn-default" style="display:inline-block;margin-right:10px;">
+    					<i class="pull-left mdi-maps-local-hospital"></i>
+        				<span style="padding-left:10px; font-size:18px;">Doctor</span>
+					</a>
+				</div>
+				<div class="list-group-item">
+					<a href="#createUser/admin" ng-class="{'btn-material-blue-grey-500': userType==='admin'}" class="btn btn-flat btn-default" style="display:inline-block;margin-right:10px;">
+    					<i class="pull-left mdi-action-search"></i>
+        				<span style="padding-left:10px; font-size:18px;">Admin</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<!-- User Type List Div End -->
+	</div>
+	<script>
+        $(document).ready(function() {
+            // This command is used to initialize some elements and make them work properly
+            $.material.init();
+        });
+    </script>
+</div>

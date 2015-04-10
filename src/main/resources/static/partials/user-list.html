@@ -2,41 +2,20 @@
 	<div class="row">
 		<!-- User List Div Start -->
 		<div class="col-md-8">
-			<div class="list-group">
-				<div>
+			<div class="list-group" ng-show="accountService.success && accountList.length > 0">
+				<div ng-repeat="account in accountList">
 					<div class="list-group-item">
 						<div class="row-action-primary">
             				<i class="mdi-social-person"></i>
         				</div>
         				<div class="row-content">
-        					<div class="least-content"><i class="mdi-maps-local-hospital mdi-material-amber"></i></div>
-        					<h4 class="list-group-item-heading">Doctor</h4>
-            	    		<p class="list-group-item-text">doctor@echarm.com</p>
-            	    		<div class="pull-right"><a href="#/user/id" class="btn btn-sm btn-material-blue-grey-500 btn-raised">Detail Information</a></div>
-        				</div>
-					</div>
-					<div class="list-group-separator"></div>
-					<div class="list-group-item">
-						<div class="row-action-primary">
-            				<i class="mdi-social-person"></i>
-        				</div>
-        				<div class="row-content">
-        					<div class="least-content"><i class="mdi-social-person"></i></div>
-        					<h4 class="list-group-item-heading">User</h4>
-            	    		<p class="list-group-item-text">user@host.com</p>
-            	    		<div class="pull-right"><a href="#/user/id" class="btn btn-sm btn-material-blue-grey-500 btn-raised">Detail Information</a></div>
-        				</div>
-					</div>
-					<div class="list-group-separator"></div>
-					<div class="list-group-item">
-						<div class="row-action-primary">
-            				<i class="mdi-social-person"></i>
-        				</div>
-        				<div class="row-content">
-        					<div class="least-content"><i class="mdi-social-people mdi-material-deep-orange"></i></div>
-        					<h4 class="list-group-item-heading">Admin</h4>
-            	    		<p class="list-group-item-text">admin@host.com</p>
-            	    		<div class="pull-right"><a href="#/user/id" class="btn btn-sm btn-material-blue-grey-500 btn-raised">Detail Information</a></div>
+        					<div class="least-content" ng-show="account.user_type === 'doctor'"><i class="mdi-maps-local-hospital mdi-material-amber"></i></div>
+        					<div class="least-content" ng-show="account.user_type === 'user'"><i class="mdi-social-person"></i></div>
+        					<div class="least-content" ng-show="account.user_type === 'admin'"><i class="mdi-social-people mdi-material-deep-orange"></i></div>
+
+        					<h4 class="list-group-item-heading">{{account.username}}</h4>
+            	    		<p class="list-group-item-text">{{account.email}}</p>
+            	    		<div class="pull-right"><a href="#/user/{{account.account_id}}" class="btn btn-sm btn-material-blue-grey-500 btn-raised">Detail Information</a></div>
         				</div>
 					</div>
 					<div class="list-group-separator"></div>
@@ -49,19 +28,19 @@
 		<div class="col-md-4">
 			<div class="list-group">
 				<div class="list-group-item">
-					<a href="#userList/user" ng-class="{'btn-material-blue-grey-500': userType==='user}" class="btn btn-flat" style="display:inline-block;margin-right:10px;">
+					<a href="#userList/users" ng-class="{'btn-material-blue-grey-500': userType==='users'}" class="btn btn-flat" style="display:inline-block;margin-right:10px;">
     					<i class="pull-left mdi-action-face-unlock"></i>
         				<span style="padding-left:10px; font-size:18px;">User</span>
 					</a>
 				</div>
 				<div class="list-group-item">
-					<a href="#userList/doctor" ng-class="{'btn-material-blue-grey-500': userType==='doctor'}" class="btn btn-flat btn-default" style="display:inline-block;margin-right:10px;">
+					<a href="#userList/doctors" ng-class="{'btn-material-blue-grey-500': userType==='doctors'}" class="btn btn-flat btn-default" style="display:inline-block;margin-right:10px;">
     					<i class="pull-left mdi-action-search"></i>
         				<span style="padding-left:10px; font-size:18px;">Doctor</span>
 					</a>
 				</div>
 				<div class="list-group-item">
-					<a href="#userList/admin" ng-class="{'btn-material-blue-grey-500': userType==='admin'}" class="btn btn-flat btn-default" style="display:inline-block;margin-right:10px;">
+					<a href="#userList/admins" ng-class="{'btn-material-blue-grey-500': userType==='admins'}" class="btn btn-flat btn-default" style="display:inline-block;margin-right:10px;">
     					<i class="pull-left mdi-action-search"></i>
         				<span style="padding-left:10px; font-size:18px;">Admin</span>
 					</a>

@@ -16,14 +16,14 @@
 			<li><i class="mdi-social-person"></i><span style="margin-left:5px;font-size:16px">{{article.author_id}}</span></li>
 			<li><i class="mdi-device-access-time"></i><span style="margin-left:5px;font-size:16px">{{article.created_at}}</span></li>
 			<li><i class="mdi-editor-insert-comment"></i><span style="margin-left:5px;font-size:16px;">5 Comments</span></li>
-			<li><i class="mdi-social-poll"></i><span style="margin-left:5px;font-size:16px;">Avg: 4.5 stars (145)</span></li>
+			<li><i class="mdi-social-poll"></i><span style="margin-left:5px;font-size:16px;">Avg: {{averageRating}} stars ({{ratingCount}})</span></li>
 		</ul>
 
 		<div style="margin-top:40px;">
-			<p style="margin-top:30px;">Spring provides a convenient template class called RestTemplate. RestTemplate makes interacting with most RESTful services a simple process. In the example below, you establish a few variables and then make a request of the simple REST service. You use the Simple XML library to marshal the XML response data into your representation classes.</p>
-			<img style="margin-top:30px;" src="images/dummy-article-image.jpg" alt="icon" class="img-thumbnail">
+			<!-- <p style="margin-top:30px;">Spring provides a convenient template class called RestTemplate. RestTemplate makes interacting with most RESTful services a simple process. In the example below, you establish a few variables and then make a request of the simple REST service. You use the Simple XML library to marshal the XML response data into your representation classes.</p>
+			<img style="margin-top:30px;" src="images/dummy-article-image.jpg" alt="icon" class="img-thumbnail"> -->
 			<p style="margin-top:40px;">{{article.content_text}}</p>
-			<p style="margin-top:40px;">Paragraph 3 ...</p>
+			<!-- <p style="margin-top:40px;">Paragraph 3 ...</p> -->
 		</div>
 
 	</div>
@@ -104,11 +104,11 @@
     			<i class="mdi-social-person pull-right"></i><span class="pull-right" style="margin-left:5px;font-size:16px">Username</span>
     		</div>
     		<div class="panel-body">
-    			<form class="form-horizontal">
+    			<form class="form-horizontal" ng-submit="createRating()">
     				<fieldset>
     					<label for="inputRating" class="col-lg-2 control-label">Rating</label>
             			<div class="col-lg-10">
-                			<input type="number" min="0" max="5" step="0.1" class="form-control" id="inputRating" placeholder="Enter number from 0 to 5">
+                			<input type="number" min="0" max="5" step="1" class="form-control" id="inputRating" ng-model="rating.rating_value">
            				</div>
            				<div class="form-group">
             				<div class="col-lg-10 col-lg-offset-2">
